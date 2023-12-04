@@ -5,10 +5,10 @@ using OpenQA.Selenium.Chrome;
 
 namespace Tests.Selenium
 {
-    public class TestClass
+    public class GoogleSearchTests
     {
-        public IWebDriver driver = null!;
-        public WebDriverWait wait = null!;
+        private IWebDriver driver;
+        private WebDriverWait wait;
 
         [SetUp]
         public void TestSetup()
@@ -38,7 +38,7 @@ namespace Tests.Selenium
         }
 
         [Test]
-        public void searchSeleniumInSecondSearchResultText()
+        public void SearchSeleniumInSecondSearchResultText()
         {
             var secondResultSelector = By.CssSelector("#search > div > div > div > div");
             wait.Until(d => d.FindElements(secondResultSelector));
@@ -50,9 +50,9 @@ namespace Tests.Selenium
         }
 
         [Test]
-        public void hasFirstLinkGoodTextContent()
+        public void HasFirstLinkGoodTextContent()
         {
-            openWikipediaPage();
+            OpenWikipediaPage();
             var titleSelector = By.ClassName("mw-page-title-main");
             wait.Until(d => d.FindElements(titleSelector));
             // Wyszukanie na stronie Wikipedii frazy 'Selenium' w tytule
@@ -72,9 +72,9 @@ namespace Tests.Selenium
         }
 
         [Test]
-        public void hasAnyImgElementSeleniumInAlt()
+        public void HasAnyImgElementSeleniumInAlt()
         {
-            openWikipediaPage();
+            OpenWikipediaPage();
             var imagesSelector = By.CssSelector("img");
             wait.Until(d => d.FindElements(imagesSelector));
             // Wyszukanie na stronie Wikipedii wszystkich obrazkow
@@ -87,7 +87,7 @@ namespace Tests.Selenium
             Assert.IsTrue(hasAnyImgElementSeleniumInAlt);
         }
 
-        private void openWikipediaPage()
+        private void OpenWikipediaPage()
         {
             // Wyszukanie linku do Wikipedii
             var wikiLinkSelector = By.CssSelector("a[href=\"https://pl.wikipedia.org/wiki/Selenium\"]");
