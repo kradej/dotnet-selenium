@@ -14,22 +14,12 @@ namespace Tests.Selenium
         [SetUp]
         public void TestSetup()
         {
-            // Otwarcie przeglądarki Google Chrome
             driver = new ChromeDriver();
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
-            // Wejście na stronę zalando.pl
             driver.Navigate().GoToUrl("https://www.zalando.pl/");
-            // Zamknięcie strony z plikami Cookie poprzez wciśnięcie przycisku 'W porządku'
-            var wPorzadkuBtnSelector = By.CssSelector("button#uc-btn-accept-banner");
-            wait.Until(ExpectedConditions.ElementIsVisible(wPorzadkuBtnSelector));
-            driver.FindElement(wPorzadkuBtnSelector).Click();
-            // Znalezienie input do wyszukiwania
-            var searchInputSelector = By.CssSelector("#header-search-input");
-            wait.Until(d => d.FindElement(searchInputSelector));
-            var searchInput = driver.FindElement(searchInputSelector);
-            // Wyszukanie frazy "tusz do rzęs"
-            searchInput.SendKeys("tusz do rzęs");
-            searchInput.SendKeys(Keys.Enter);
+            var okBtnSelector = By.CssSelector("button#uc-btn-accept-banner");
+            wait.Until(ExpectedConditions.ElementIsVisible(okBtnSelector));
+            driver.FindElement(okBtnSelector).Click(); 
         }
 
         [TearDown]
@@ -42,6 +32,12 @@ namespace Tests.Selenium
         public void BasketSumTest()
         {
             // First Product
+            var searchInputSelector = By.CssSelector("#header-search-input");
+            wait.Until(d => d.FindElement(searchInputSelector));
+            var searchInput = driver.FindElement(searchInputSelector);
+            searchInput.SendKeys("tusz do rzęs");
+            searchInput.SendKeys(Keys.Enter);
+            
             var allResultSelector = By.CssSelector("[data-zalon-partner-target=\"true\"] > div:first-child a");
             wait.Until(d => d.FindElements(allResultSelector));
 
